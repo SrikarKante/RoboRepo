@@ -1,7 +1,11 @@
 package org.usfirst.frc.team226.robot;
 
+import org.usfirst.frc.team226.robot.commands.LiftDown;
+import org.usfirst.frc.team226.robot.commands.LiftUp;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
-import org.usfirst.frc.team226.robot.commands.ExampleCommand;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -34,5 +38,23 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
+	Joystick manip = new Joystick(0);
+	Button b1 = new JoystickButton(manip, 1);
+	Button b2 = new JoystickButton(manip, 2);
+	
+	Joystick driver = new Joystick(1);
+	
+	public OI() {
+		b1.whileHeld(new LiftUp());
+		b2.whileHeld(new LiftDown());
+	}
+	
+	public void getLeftDriveSpeed() {
+		driver.getRawAxis(2);
+	}
+	
+	public void getRightDriveSpeed() {
+		driver.getRawAxis(5);
+	}
 }
 

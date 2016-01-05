@@ -1,6 +1,7 @@
 package org.usfirst.frc.team226.robot.subsystems;
 
 import org.usfirst.frc.team226.robot.RobotMap;
+import org.usfirst.frc.team226.robot.commands.LiftDoNothing;
 
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -20,7 +21,7 @@ public class Lift extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefualtCommand(new LiftDoNothing);
+    	setDefaultCommand(new LiftDoNothing());
     }
     
     public void moveUp() {
