@@ -24,5 +24,8 @@ public class Auton extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	addSequential(new DriveWithAuton(.5, .5, 1000));
+    	addSequential(new ClawClose());
+    	addSequential(new LiftUp());
     }
 }

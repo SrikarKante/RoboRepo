@@ -1,15 +1,24 @@
 package org.usfirst.frc.team226.robot.commands;
 
+import org.usfirst.frc.team226.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class DriveWithAuton extends Command {
+	
+	double leftSpeed;
+	double rightSpeed;
 
-    public DriveWithAuton() {
+    public DriveWithAuton(double left, double right, int time) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.driveTrain);
+    	leftSpeed = left;
+    	rightSpeed = right;
+    	setTimeout(time);
     }
 
     // Called just before this Command runs the first time
