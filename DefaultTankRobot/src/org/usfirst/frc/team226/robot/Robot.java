@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team226.robot;
 
+import org.usfirst.frc.team226.robot.subsystems.Claw;
 import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team226.robot.subsystems.Lift;
 
@@ -20,6 +21,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static final Lift lift = new Lift();
 	public static final DriveTrain driveTrain = new DriveTrain();
+	public static final Claw claw = new Claw();
 
     /**
      * This function is run when the robot is first started up and should be

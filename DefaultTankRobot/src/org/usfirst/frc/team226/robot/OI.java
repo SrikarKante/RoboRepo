@@ -1,5 +1,7 @@
 package org.usfirst.frc.team226.robot;
 
+import org.usfirst.frc.team226.robot.commands.ClawClose;
+import org.usfirst.frc.team226.robot.commands.ClawOpen;
 import org.usfirst.frc.team226.robot.commands.LiftDown;
 import org.usfirst.frc.team226.robot.commands.LiftUp;
 
@@ -41,20 +43,24 @@ public class OI {
 	Joystick manip = new Joystick(0);
 	Button b1 = new JoystickButton(manip, 1);
 	Button b2 = new JoystickButton(manip, 2);
+	Button b3 = new JoystickButton(manip, 3);
+	Button b4 = new JoystickButton(manip, 4);
 	
 	Joystick driver = new Joystick(1);
 	
 	public OI() {
 		b1.whileHeld(new LiftUp());
 		b2.whileHeld(new LiftDown());
+		b3.whenPressed(new ClawOpen());
+		b4.whenPressed(new ClawClose());
 	}
 	
-	public void getLeftDriveSpeed() {
-		driver.getRawAxis(2);
+	public double getLeftDriveSpeed() {
+		return driver.getRawAxis(2);
 	}
 	
-	public void getRightDriveSpeed() {
-		driver.getRawAxis(5);
+	public double getRightDriveSpeed() {
+		return driver.getRawAxis(5);
 	}
 }
 
