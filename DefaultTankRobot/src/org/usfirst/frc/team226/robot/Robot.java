@@ -1,11 +1,13 @@
 
 package org.usfirst.frc.team226.robot;
 
+import org.usfirst.frc.team226.robot.commands.Auton;
 import org.usfirst.frc.team226.robot.subsystems.Claw;
 import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team226.robot.subsystems.Lift;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
@@ -22,6 +24,7 @@ public class Robot extends IterativeRobot {
 	public static final Lift lift = new Lift();
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Claw claw = new Claw();
+	Command autonomousCommand;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -30,6 +33,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
         // instantiate the command used for the autonomous period
+		autonomousCommand = new Auton();
     }
 	
 	public void disabledPeriodic() {
