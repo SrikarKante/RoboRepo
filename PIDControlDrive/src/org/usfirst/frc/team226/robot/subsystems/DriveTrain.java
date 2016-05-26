@@ -18,10 +18,10 @@ public class DriveTrain extends PIDSubsystem {
 	private static final double Ki = 0.0;
 	private static final double Kd = 0.0;
 	
-	SpeedController rearRightMotor = new CANTalon(RobotMap.REAR_RIGHT_DRIVE);
-	SpeedController frontRightMotor = new CANTalon(RobotMap.FRONT_RIGHT_DRIVE);
-	SpeedController rearLeftMotor = new CANTalon(RobotMap.REAR_LEFT_DRIVE);
-	SpeedController frontLeftMotor = new CANTalon(RobotMap.FRONT_LEFT_DRIVE);
+	private SpeedController rearRightMotor = new CANTalon(RobotMap.REAR_RIGHT_DRIVE);
+	private SpeedController frontRightMotor = new CANTalon(RobotMap.FRONT_RIGHT_DRIVE);
+	private SpeedController rearLeftMotor = new CANTalon(RobotMap.REAR_LEFT_DRIVE);
+	private SpeedController frontLeftMotor = new CANTalon(RobotMap.FRONT_LEFT_DRIVE);
 
 	RobotDrive drive = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 	

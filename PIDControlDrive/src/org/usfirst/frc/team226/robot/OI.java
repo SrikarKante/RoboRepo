@@ -10,6 +10,8 @@ public class OI {
 	
 	Joystick driver = new Joystick(0);
 	
+	Button A = new JoystickButton(driver, ****);
+	
 	public OI() {
 		
 	}
