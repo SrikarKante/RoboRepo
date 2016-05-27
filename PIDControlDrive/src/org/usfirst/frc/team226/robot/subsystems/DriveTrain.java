@@ -54,7 +54,7 @@ public class DriveTrain extends PIDSubsystem {
     protected void usePIDOutput(double output) {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
-    	drive.tankDrive(output, output);
+    	tankDrive(output, output);
     }
     
     public void tankDrive(double left, double right) {

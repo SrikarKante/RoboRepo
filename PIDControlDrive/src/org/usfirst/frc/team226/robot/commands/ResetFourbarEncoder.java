@@ -7,15 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SetFourBarPoint extends Command {
-	
-	private double setpoint;
+public class ResetFourbarEncoder extends Command {
 
-    public SetFourBarPoint(double setpoint) {
+    public ResetFourbarEncoder() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.fourbar);
-    	this.setpoint = setpoint;
     }
 
     // Called just before this Command runs the first time
@@ -24,11 +20,12 @@ public class SetFourBarPoint extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.fourbar.resetFourbarEncoder();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Math.abs(Robot.fourbar.getPosition() - setpoint) < 0.8;
+        return true;
     }
 
     // Called once after isFinished returns true

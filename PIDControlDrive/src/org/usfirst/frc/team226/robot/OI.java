@@ -1,7 +1,8 @@
 package org.usfirst.frc.team226.robot;
 
-import org.usfirst.frc.team226.robot.commands.SetFourBarPoint;
-import org.usfirst.frc.team226.robot.subsystems.FourBar;
+import org.usfirst.frc.team226.robot.commands.ResetFourbarEncoder;
+import org.usfirst.frc.team226.robot.commands.SetFourbarPoint;
+import org.usfirst.frc.team226.robot.subsystems.Fourbar;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -33,16 +34,17 @@ public class OI {
 	Button M_RS = new JoystickButton(manip, 10);
 	
 	public OI() {
-		M_A.whenPressed(new SetFourBarPoint(FourBar.ZERO));
-		M_X.whenPressed(new SetFourBarPoint(FourBar.HALF));
-		M_Y.whenPressed(new SetFourBarPoint(FourBar.FULL));
+		M_A.whenPressed(new SetFourbarPoint(Fourbar.ZERO));
+		M_X.whenPressed(new SetFourbarPoint(Fourbar.HALF));
+		M_Y.whenPressed(new SetFourbarPoint(Fourbar.FULL));
+		M_B.whenPressed(new ResetFourbarEncoder());
 	}
 	
-	public double getLeftJoystick() {
+	public double getDriverLeftJoystick() {
 		return driver.getY();
 	}
 	
-	public double getRightJoystick() {
+	public double getDriverRightJoystick() {
 		return driver.getRawAxis(5);
 	}
 	
