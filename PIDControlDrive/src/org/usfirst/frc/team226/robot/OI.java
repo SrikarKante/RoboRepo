@@ -45,5 +45,9 @@ public class OI {
 	public double getRightJoystick() {
 		return driver.getRawAxis(5);
 	}
+	
+	public double getManipRightJoystick() {
+		return manip.getRawAxis(5);
+	}
 }
 
