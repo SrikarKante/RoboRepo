@@ -1,5 +1,6 @@
 package org.usfirst.frc.team226.robot;
 
+import org.usfirst.frc.team226.robot.commands.DriveToDistance;
 import org.usfirst.frc.team226.robot.commands.ResetFourbarEncoder;
 import org.usfirst.frc.team226.robot.commands.SetFourbarPoint;
 import org.usfirst.frc.team226.robot.subsystems.Fourbar;
@@ -18,6 +19,7 @@ public class OI {
 	Joystick manip = new Joystick(1);
 	
 	Button D_A = new JoystickButton(driver, 1);
+	Button D_B = new JoystickButton(driver, 2);
 	Button D_X= new JoystickButton(driver, 3);
 	Button D_LB = new JoystickButton(driver, 5);
 	Button D_RB = new JoystickButton(driver, 6);
@@ -38,6 +40,9 @@ public class OI {
 		M_X.whenPressed(new SetFourbarPoint(Fourbar.HALF));
 		M_Y.whenPressed(new SetFourbarPoint(Fourbar.FULL));
 		M_B.whenPressed(new ResetFourbarEncoder());
+		
+		D_A.whenPressed(new DriveToDistance(2.0));
+		D_B.whenPressed(new DriveToDistance(4.0));
 	}
 	
 	public double getDriverLeftJoystick() {

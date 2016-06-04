@@ -7,12 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveWithLeftJoystick extends Command {
+public class DriveWithRightJoystick extends Command {
 
-    public DriveWithLeftJoystick() {
+    public DriveWithRightJoystick() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.leftdrivetrain);
+    	requires(Robot.rightdrivetrain);
     }
 
     // Called just before this Command runs the first time
@@ -21,7 +21,7 @@ public class DriveWithLeftJoystick extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.leftdrivetrain.tankDrive(Robot.oi.getDriverLeftJoystick());
+    	Robot.rightdrivetrain.tankDrive(Robot.oi.getDriverRightJoystick());
     }
 
     // Make this return true when this Command no longer needs to run execute()
