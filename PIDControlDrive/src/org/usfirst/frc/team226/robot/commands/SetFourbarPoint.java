@@ -1,8 +1,10 @@
 package org.usfirst.frc.team226.robot.commands;
 
 import org.usfirst.frc.team226.robot.Robot;
+import org.usfirst.frc.team226.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -20,6 +22,7 @@ public class SetFourbarPoint extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		Robot.fourbar.setSetpoint(setpoint);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -28,7 +31,7 @@ public class SetFourbarPoint extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Math.abs(Robot.fourbar.getPosition() - setpoint) < 0.8;
+		return Math.abs(Robot.fourbar.getPosition() - setpoint) < RobotMap.FOURBAR_ERROR;
 	}
 
 	// Called once after isFinished returns true

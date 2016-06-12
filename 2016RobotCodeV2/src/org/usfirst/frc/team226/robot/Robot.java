@@ -1,14 +1,14 @@
 
 package org.usfirst.frc.team226.robot;
 
-import org.usfirst.frc.team226.robot.subsystems.Fourbar;
-import org.usfirst.frc.team226.robot.subsystems.LeftDriveTrain;
-import org.usfirst.frc.team226.robot.subsystems.RightDriveTrain;
+import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,13 +21,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static final LeftDriveTrain leftdrivetrain = new LeftDriveTrain();
-	public static final RightDriveTrain rightdrivetrain = new RightDriveTrain();
-	public static final Fourbar fourbar = new Fourbar();
+	public static final DriveTrain driveTrain = new DriveTrain();
 	public static OI oi;
 
     Command autonomousCommand;
     SendableChooser chooser;
+    
+    NetworkTable table;
+    CameraServer server;
+    
+    public static double centerValue;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -35,11 +38,17 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
-        chooser = new SendableChooser();
-       // chooser.addDefault("Default Auto", new ExampleCommand());
+//        chooser = new SendableChooser();
+        
+        server = CameraServer.getInstance();
+        server.setQuality(50);
+        //the camera name (ex "cam0") can be found through the roborio web interface
+        server.startAutomaticCapture("cam0");
+        
+//        chooser.addDefault("Default Auto", new ExampleCommand());
 //        chooser.addObject("My Auto", new MyAutoCommand());
-       // SmartDashboard.putData("Auto mode", chooser);
-        LiveWindow.setEnabled(true);
+        table = NetworkTable.getTable("SharkCV/contours/0"); 
+//        SmartDashboard.putData("Auto mode", chooser);
     }
 	
 	/**
@@ -102,10 +111,10 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putBoolean("On Target", Robot.fourbar.onTarget());
-        SmartDashboard.putNumber("Position", Robot.fourbar.getPosition());
-        SmartDashboard.putNumber("Fourbar Setpoint", Robot.fourbar.getSetpoint());
-        SmartDashboard.putNumber("4BarEncoder - pidget", Robot.fourbar.encoder.pidGet());
+        centerValue = table.getNumber("centerX",-1);
+        SmartDashboard.putNumber("Center Value", centerValue);
+        
+        SmartDashboard.putNumber("Position", Robot.driveTrain.getPosition());
     }
     
     /**

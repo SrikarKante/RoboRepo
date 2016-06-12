@@ -32,7 +32,10 @@ public class RightDriveTrain extends PIDSubsystem {
         // setSetpoint() -  Sets where the PID controller should move the system
         //                  to
         // enable() - Enables the PID controller.
-    	LiveWindow.addActuator("Right Drive Train", "PID Controller", getPIDController());
+    	drive.setSafetyEnabled(false);
+    	LiveWindow.addActuator(getName(), "PID Controller", getPIDController());
+    	LiveWindow.addSensor(getName(), "REncoder", rearRight);
+    	enable();
     }
     
     public void initDefaultCommand() {

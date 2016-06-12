@@ -14,16 +14,16 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Fourbar extends PIDSubsystem {
 	
-	private static final double Kp = 0.0;
+	private static final double Kp = 0.020;
 	private static final double Ki = 0.0;
 	private static final double Kd = 0.0;
 	
-	public static final double ZERO = 0.0, HALF = 600, FULL = 1200;
+	public static final double ZERO = 226.0, HALF = 600.0, FULL = 1100.0;
 	
 	SpeedController leftArmMotor = new CANTalon(RobotMap.LEFT_ARM_MOTOR);
 	SpeedController rightArmMotor = new CANTalon(RobotMap.RIGHT_ARM_MOTOR);
 	
-	Encoder encoder = new Encoder(RobotMap.LIFT_ENCODER_A, RobotMap.LIFT_ENCODER_B, false, Encoder.EncodingType.k4X);
+	public Encoder encoder = new Encoder(RobotMap.LIFT_ENCODER_A, RobotMap.LIFT_ENCODER_B, false, Encoder.EncodingType.k4X);
 		
     // Initialize your subsystem here
     public Fourbar() {
@@ -37,10 +37,16 @@ public class Fourbar extends PIDSubsystem {
 		encoder.setDistancePerPulse(5);
 		encoder.setReverseDirection(true);
 		encoder.setSamplesToAverage(5);
+		setAbsoluteTolerance(RobotMap.FOURBAR_ERROR);
 		
-		setSetpoint(ZERO);
-		enable();
-		LiveWindow.addActuator("Four Bar", "PID Controller2", getPIDController());
+		//Use continuous for sensors that continuously rotate
+		//E.x. Controller is at 359 and want to get to zero. Normally it would rotate all the way back around
+		//but with continuous it knows that 0 and 360 are the same and will take the shorter way
+		getPIDController().setContinuous(false);
+		
+		setSetpoint(HALF);
+		LiveWindow.addSensor(getName(), "4BarEncoder", encoder);
+		LiveWindow.addActuator(getName(), "PID Controller2", getPIDController());
     }
     
     public void initDefaultCommand() {
