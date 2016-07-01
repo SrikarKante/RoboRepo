@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AlignVision extends Command {
+public class DriveWithJoysticks extends Command {
 
-    public AlignVision() {
+    public DriveWithJoysticks() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.driveTrain);
@@ -17,22 +17,21 @@ public class AlignVision extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-//    	Robot.driveTrain.setSetpoint(0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.driveTrain.tankDrive(Robot.driveTrain.driveRamp(Robot.oi.getDriverLeftJoystick()), Robot.driveTrain.driveRamp(Robot.oi.getDriverRightJoystick()));
+    	//Robot.driveTrain.tankDrive(-Robot.oi.getDriverLeftJoystick(), -Robot.oi.getDriverRightJoystick());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-//        return Math.abs(Robot.driveTrain.getPosition() - 0) < 7.0;
-    	return true;
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	//Robot.driveTrain.disable();
     }
 
     // Called when another command which requires one or more of the same

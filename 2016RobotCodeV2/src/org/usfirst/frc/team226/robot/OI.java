@@ -1,6 +1,7 @@
 package org.usfirst.frc.team226.robot;
 
 import org.usfirst.frc.team226.robot.commands.AlignVision;
+import org.usfirst.frc.team226.robot.commands.Test;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -32,6 +33,15 @@ public class OI {
 	
 	public OI() {
 		D_A.whenPressed(new AlignVision());
+		D_X.whenPressed(new Test());
+	}
+	
+	public double getDriverLeftJoystick() {
+		return driver.getY();
+	}
+	
+	public double getDriverRightJoystick() {
+		return driver.getRawAxis(5);
 	}
 }
 
