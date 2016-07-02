@@ -25,7 +25,12 @@ public class DriveTrain extends Subsystem {
 	public CANTalon rearLeft = new CANTalon(RobotMap.LEFT_ENCODER);
     public CANTalon rearRight = new CANTalon(RobotMap.RIGHT_ENCODER);
     
-    
+  //Constants
+  	final int NORMAL = 0, RAMPING_UP = 1, RAMPING_DOWN = 2;
+  	
+  	final double RAMPING_CONSTANT = 0.005;
+  	
+  	final double DELTA_LIMIT = 0.5;
 	
 //	Accelerometer accel = new BuiltInAccelerometer();
 	
@@ -43,28 +48,21 @@ public class DriveTrain extends Subsystem {
 		drive.tankDrive(leftJoystick, rightJoystick);
 	}
 	
-	double oldInput = 0;
+	double oldInputLeft = 0;
 	
-	//Constants
-	final int NORMAL = 0, RAMPING_UP = 1, RAMPING_DOWN = 2;
-	
-	final double RAMPING_CONSTANT = 0.005;
-	
-	final double DELTA_LIMIT = 0.5;
-	
-	public double driveRamp(double input) {
+	public double driveRampLeft(double leftInput) {
 		int mode = 0;
 		
 		double capture_value = 0, output = 0;
 		
-		double delta = input - this.oldInput;
+		double delta = leftInput - this.oldInputLeft;
 		
 		if(delta >= DELTA_LIMIT) { 
 			mode=RAMPING_UP; 
-			capture_value = input;
+			capture_value = leftInput;
 		}else if(delta <= -DELTA_LIMIT) { 
 			mode=RAMPING_DOWN; 
-			capture_value = input;
+			capture_value = leftInput;
 		} 
 		
 		switch(mode){
@@ -81,11 +79,51 @@ public class DriveTrain extends Subsystem {
 				break;
 				
 			case 0:
-				output = input;
+				output = leftInput;
 				break;
 		}
 		
-		oldInput = input;
+		this.oldInputLeft = leftInput;
+		
+		return output;
+	}
+	
+	double oldInputRight = 0;
+	
+	public double driveRampRight(double rightInput) {
+		int mode = 0;
+		
+		double capture_value = 0, output = 0;
+		
+		double delta = rightInput - this.oldInputRight;
+		
+		if(delta >= DELTA_LIMIT) { 
+			mode=RAMPING_UP; 
+			capture_value = rightInput;
+		}else if(delta <= -DELTA_LIMIT) { 
+			mode=RAMPING_DOWN; 
+			capture_value = rightInput;
+		} 
+		
+		switch(mode){
+		//RAMPING UP
+			case 1: 
+				output+= RAMPING_CONSTANT;
+				if(output >= capture_value) { mode = NORMAL; }
+				break;
+				
+		//RAMPING DOWN		
+			case 2:
+				output-= RAMPING_CONSTANT;
+				if(output <= capture_value) { mode = NORMAL; }
+				break;
+				
+			case 0:
+				output = rightInput;
+				break;
+		}
+		
+		this.oldInputRight = rightInput;
 		
 		return output;
 	}
