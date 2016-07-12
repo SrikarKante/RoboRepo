@@ -19,23 +19,27 @@ public class DriveTrain extends Subsystem {
 	public SpeedController frontRightMotor = new CANTalon(RobotMap.FRONT_RIGHT_DRIVE);
 	public SpeedController rearLeftMotor = new CANTalon(RobotMap.REAR_LEFT_DRIVE);
 	public SpeedController frontLeftMotor = new CANTalon(RobotMap.FRONT_LEFT_DRIVE);
-	
+
 	RobotDrive drive = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
-	
+
 	public CANTalon rearLeft = new CANTalon(RobotMap.LEFT_ENCODER);
-    public CANTalon rearRight = new CANTalon(RobotMap.RIGHT_ENCODER);
-    
-  //Constants
-  	final int NORMAL = 0, RAMPING_UP = 1, RAMPING_DOWN = 2;
-  	
-  	final double RAMPING_CONSTANT = 0.005;
-  	
-  	final double DELTA_LIMIT = 0.5;
+	public CANTalon rearRight = new CANTalon(RobotMap.RIGHT_ENCODER);
+
+	// Constants
+	final int NORMAL = 0, RAMPING_UP = 1, RAMPING_DOWN = 2;
+
+	final double RAMPING_CONSTANT = 0.005;
 	
-//	Accelerometer accel = new BuiltInAccelerometer();
+	double rightAdjustment = 0;
 	
-//	Gyro gyro = new AnalogGyro(channel); //0 or 1
-	
+	double leftAdjustment = 0;
+
+	final double DELTA_LIMIT = 0.5;
+
+	// Accelerometer accel = new BuiltInAccelerometer();
+
+	// Gyro gyro = new AnalogGyro(channel); //0 or 1
+
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 
@@ -43,88 +47,88 @@ public class DriveTrain extends Subsystem {
 		// Set the default command for a subsystem here.
 		setDefaultCommand(new DriveWithJoysticks());
 	}
-	
+
 	public void tankDrive(double leftJoystick, double rightJoystick) {
 		drive.tankDrive(leftJoystick, rightJoystick);
 	}
-	
+
 	double oldInputLeft = 0;
 	
+	int leftMode = 0;
+
 	public double driveRampLeft(double leftInput) {
-		int mode = 0;
-		
-		double capture_value = 0, output = 0;
-		
+
 		double delta = leftInput - this.oldInputLeft;
-		
-		if(delta >= DELTA_LIMIT) { 
-			mode=RAMPING_UP; 
-			capture_value = leftInput;
-		}else if(delta <= -DELTA_LIMIT) { 
-			mode=RAMPING_DOWN; 
-			capture_value = leftInput;
-		} 
-		
-		switch(mode){
-		//RAMPING UP
-			case 1: 
-				output+= RAMPING_CONSTANT;
-				if(output >= capture_value) { mode = NORMAL; }
-				break;
-				
-		//RAMPING DOWN		
-			case 2:
-				output-= RAMPING_CONSTANT;
-				if(output <= capture_value) { mode = NORMAL; }
-				break;
-				
-			case 0:
-				output = leftInput;
-				break;
+
+		if (delta >= DELTA_LIMIT) {
+			leftMode = RAMPING_UP;
+		} else if (delta <= -DELTA_LIMIT) {
+			leftMode = RAMPING_DOWN;
 		}
-		
+
+		switch (leftMode) {
+		case RAMPING_UP:
+			leftAdjustment += RAMPING_CONSTANT;
+			if (leftAdjustment >= leftInput) {
+				leftMode = NORMAL;
+			}
+			break;
+
+		case RAMPING_DOWN:
+			leftAdjustment -= RAMPING_CONSTANT;
+			if (leftAdjustment <= leftInput) {
+				leftMode = NORMAL;
+			}
+			break;
+
+		case NORMAL:
+			leftAdjustment = leftInput;
+			break;
+		}
+
 		this.oldInputLeft = leftInput;
-		
-		return output;
+
+		return leftAdjustment;
 	}
-	
+
 	double oldInputRight = 0;
 	
+	int rightMode = 0;
+
 	public double driveRampRight(double rightInput) {
-		int mode = 0;
-		
-		double capture_value = 0, output = 0;
-		
+
 		double delta = rightInput - this.oldInputRight;
-		
-		if(delta >= DELTA_LIMIT) { 
-			mode=RAMPING_UP; 
-			capture_value = rightInput;
-		}else if(delta <= -DELTA_LIMIT) { 
-			mode=RAMPING_DOWN; 
-			capture_value = rightInput;
-		} 
-		
-		switch(mode){
-		//RAMPING UP
-			case 1: 
-				output+= RAMPING_CONSTANT;
-				if(output >= capture_value) { mode = NORMAL; }
-				break;
-				
-		//RAMPING DOWN		
-			case 2:
-				output-= RAMPING_CONSTANT;
-				if(output <= capture_value) { mode = NORMAL; }
-				break;
-				
-			case 0:
-				output = rightInput;
-				break;
+
+		if (delta >= DELTA_LIMIT) {
+			rightMode = RAMPING_UP;
+		} else if (delta <= -DELTA_LIMIT) {
+			rightMode = RAMPING_DOWN;
 		}
-		
+
+		switch (rightMode) {
+		// RAMPING UP
+		case 1:
+			rightAdjustment += RAMPING_CONSTANT;
+			if (rightAdjustment >= rightInput) {
+				rightMode = NORMAL;
+			}
+			break;
+
+		// RAMPING DOWN
+		case 2:
+			rightInput -= RAMPING_CONSTANT;
+			if (rightAdjustment <= rightInput) {
+				rightMode = NORMAL;
+			}
+			break;
+
+		case 0:
+			rightAdjustment = rightInput;
+			break;
+		}
+
 		this.oldInputRight = rightInput;
-		
-		return output;
+
+		return rightAdjustment;
 	}
 }

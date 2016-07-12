@@ -21,11 +21,11 @@ public class Test extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	for (double i = 0; i < 1; i+=0.005) {
+    	for (double i = 0; i < 1; i+=0.01) {
     		Robot.driveTrain.tankDrive(i, i);
     	}
     	
-    	for (double i = 1; i > 0; i-=0.005) {
+    	for (double i = 1; i > 0; i-=0.01) {
     		Robot.driveTrain.tankDrive(i, i);
     	}
     	Robot.driveTrain.tankDrive(0, 0);
