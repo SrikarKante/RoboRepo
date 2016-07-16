@@ -1,7 +1,7 @@
 
 package org.usfirst.frc.team226.robot;
 
-import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team226.robot.subsystems.CheesyDriveTrain;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -22,7 +22,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	// public static final PIDDriveTrain driveTrain = new PIDDriveTrain();
-	public static final DriveTrain driveTrain = new DriveTrain();
+	//public static final DriveTrain driveTrain = new DriveTrain();
+	public static final CheesyDriveTrain cheesyDriveTrain = new CheesyDriveTrain();	
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -43,8 +44,7 @@ public class Robot extends IterativeRobot {
 
 		server = CameraServer.getInstance();
 		server.setQuality(50);
-		// the camera name (ex "cam0") can be found through the roborio web
-		// interface
+		// the camera name (ex "cam0") can be found through the roborio web interface
 		server.startAutomaticCapture("cam0");
 
 		// chooser.addDefault("Default Auto", new ExampleCommand());
@@ -116,12 +116,11 @@ public class Robot extends IterativeRobot {
 		centerValue = table.getNumber("centerX", -1);
 		SmartDashboard.putNumber("Center Value", centerValue);
 		
+		/* NORMAL DRIVETRAIN
 		SmartDashboard.putNumber("LEFT VEL", Robot.driveTrain.rearLeft.getEncVelocity());
 		SmartDashboard.putNumber("RIGHT VEL", Robot.driveTrain.rearRight.getEncVelocity());
-		
 		SmartDashboard.putNumber("LEFT COUNT", Robot.driveTrain.rearLeft.getEncVelocity());
-		
-//		SmartDashboard.putNumber("Position", Robot.driveTrain.getPosition());
+		*/
 	}
 
 	/**

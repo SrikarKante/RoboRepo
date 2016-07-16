@@ -36,12 +36,28 @@ public class OI {
 		D_X.whenPressed(new Test());
 	}
 	
+	/*
+	 * Use .getRawAxis(int index)
+	 * 
+	Axis indexes:
+	1 - LeftX
+	2 - LeftY
+	3 - Triggers (Each trigger = 0 to 1, axis value = right - left)
+	4 - RightX
+	5 - RightY
+	6 - DPad Left/Right
+	*/
+	
 	public double getDriverLeftJoystick() {
 		return driver.getY();
 	}
 	
 	public double getDriverRightJoystick() {
 		return driver.getRawAxis(5);
+	}
+	
+	public double getDriverRightJoystick_X() {
+		return driver.getRawAxis(4);
 	}
 }
 
