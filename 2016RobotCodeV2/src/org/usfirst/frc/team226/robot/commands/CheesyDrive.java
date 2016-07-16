@@ -8,6 +8,10 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class CheesyDrive extends Command {
+	
+	double throttle;
+	double turn;
+	public static boolean turnButton = false;
 
     public CheesyDrive() {
         // Use requires() here to declare subsystem dependencies
@@ -21,7 +25,17 @@ public class CheesyDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.cheesyDriveTrain.cheesyDrive(Robot.oi.getDriverLeftJoystick(), Robot.oi.getDriverRightJoystick_X());
+    	if (Robot.oi.driver.getButtonLBPressed()) {
+    		turnButton = false;
+    	}
+    	else {
+    		turnButton = true;
+    	}
+    	
+    	throttle = Robot.oi.driver.getLeftJoystick_Y();
+    	turn = Robot.oi.driver.getRightJoystick_X();
+    	
+    	Robot.cheesyDriveTrain.cheesyDrive(throttle, turn);
     }
 
     // Make this return true when this Command no longer needs to run execute()
