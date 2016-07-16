@@ -12,52 +12,14 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	Joystick driver = new Joystick(0);
-	Joystick manip = new Joystick(1);
+	
+	public XboxController driver = new XboxController(0);
+	public XboxController manip = new XboxController(1);
 
-	Button D_A = new JoystickButton(driver, 1);
-	Button D_X= new JoystickButton(driver, 3);
-	Button D_LB = new JoystickButton(driver, 5);
-	Button D_RB = new JoystickButton(driver, 6);
-	Button D_LS = new JoystickButton(driver, 9);
-	Button M_A = new JoystickButton(manip, 1);
-	Button M_B = new JoystickButton(manip, 2);
-	Button M_X = new JoystickButton(manip, 3);
-	Button M_Y = new JoystickButton(manip, 4);
-	Button M_LB = new JoystickButton(manip, 5);
-	Button M_RB = new JoystickButton(manip, 6);
-	Button M_SELECT = new JoystickButton(manip, 7);
-	Button M_START = new JoystickButton(manip, 8);
-	Button M_LS = new JoystickButton(manip, 9);
-	Button M_RS = new JoystickButton(manip, 10);
-	
 	public OI() {
-		D_A.whenPressed(new AlignVision());
-		D_X.whenPressed(new Test());
+		driver.A.whenPressed(new AlignVision());
+		driver.X.whenPressed(new Test());
 	}
 	
-	/*
-	 * Use .getRawAxis(int index)
-	 * 
-	Axis indexes:
-	1 - LeftX
-	2 - LeftY
-	3 - Triggers (Each trigger = 0 to 1, axis value = right - left)
-	4 - RightX
-	5 - RightY
-	6 - DPad Left/Right
-	*/
-	
-	public double getDriverLeftJoystick() {
-		return driver.getY();
-	}
-	
-	public double getDriverRightJoystick() {
-		return driver.getRawAxis(5);
-	}
-	
-	public double getDriverRightJoystick_X() {
-		return driver.getRawAxis(4);
-	}
 }
 
