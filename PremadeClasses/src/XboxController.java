@@ -1,4 +1,9 @@
+
+
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * @author Alec Minchington
@@ -6,9 +11,20 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class XboxController extends Joystick {
 	
-	public XboxController(int port) {
-		super(port);
+	public XboxController(int usbPort) {
+		super(usbPort);
 	}
+	
+	Button A = new JoystickButton(this, 1);
+	Button B = new JoystickButton(this, 2);
+	Button X = new JoystickButton(this, 3);
+	Button Y = new JoystickButton(this, 4);
+	Button LB = new JoystickButton(this, 5);
+	Button RB = new JoystickButton(this, 6);
+	Button BACK = new JoystickButton(this, 7);
+	Button START = new JoystickButton(this, 8);
+	Button LS = new JoystickButton(this, 9);
+	Button RS = new JoystickButton(this, 10);
 	
 	//STICKS
 	
