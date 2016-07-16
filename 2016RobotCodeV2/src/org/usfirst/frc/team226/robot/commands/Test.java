@@ -12,7 +12,7 @@ public class Test extends Command {
     public Test() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.driveTrain);
+    	requires(Robot.cheesyDriveTrain);
     }
 
     // Called just before this Command runs the first time
@@ -22,13 +22,13 @@ public class Test extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	for (double i = 0; i < 1; i+=0.01) {
-    		Robot.driveTrain.tankDrive(i, i);
+    		Robot.cheesyDriveTrain.tankDrive(i, i);
     	}
     	
     	for (double i = 1; i > 0; i-=0.01) {
-    		Robot.driveTrain.tankDrive(i, i);
+    		Robot.cheesyDriveTrain.tankDrive(i, i);
     	}
-    	Robot.driveTrain.tankDrive(0, 0);
+    	Robot.cheesyDriveTrain.tankDrive(0, 0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
