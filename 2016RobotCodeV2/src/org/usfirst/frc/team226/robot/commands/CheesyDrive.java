@@ -25,7 +25,7 @@ public class CheesyDrive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Robot.oi.driveController.getButtonLBPressed()) {
+		if (Robot.oi.driveController.getLBButtonPressed()) {
 			turnButton = false;
 		} else {
 			turnButton = true;
