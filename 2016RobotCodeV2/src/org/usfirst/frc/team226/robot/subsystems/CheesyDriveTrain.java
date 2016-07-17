@@ -20,25 +20,25 @@ public class CheesyDriveTrain extends Subsystem {
 
 	RobotDrive drive = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 
-	//TUNE THESE
+	// TUNE THESE
 	private static final double SKIM_GAIN = 1.0;
 	private static final double TURN_GAIN = 1.0;
 
 	public void initDefaultCommand() {
-		 setDefaultCommand(new CheesyDrive());
+		setDefaultCommand(new CheesyDrive());
 	}
 
 	public void cheesyDrive(double throttle, double turn) {
 		if (!getTurnButton()) {
-		turn = turn * (TURN_GAIN * Math.abs(throttle));
+			turn = turn * (TURN_GAIN * Math.abs(throttle));
 		}
-		
+
 		double t_left = throttle - turn;
 		double t_right = throttle + turn;
-		
+
 		drive.tankDrive(t_left + skim(t_right), t_right + skim(t_left));
 	}
-	
+
 	public void tankDrive(double left, double right) {
 		drive.tankDrive(left, right);
 	}
@@ -52,7 +52,7 @@ public class CheesyDriveTrain extends Subsystem {
 			return 0;
 		}
 	}
-	
+
 	boolean getTurnButton() {
 		return CheesyDrive.turnButton;
 	}

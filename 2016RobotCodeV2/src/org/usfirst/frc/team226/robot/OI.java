@@ -12,14 +12,13 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	
-	public XboxController driver = new XboxController(0);
-	public XboxController manip = new XboxController(1);
+
+	public XboxController driveController = new XboxController(0);
+	public XboxController manipController = new XboxController(1);
 
 	public OI() {
-		driver.A.whenPressed(new AlignVision());
-		driver.X.whenPressed(new Test());
+		driveController.A.whenPressed(new AlignVision());
+		driveController.X.whenPressed(new Test());
 	}
-	
-}
 
+}
