@@ -7,13 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SetDefaultCommand extends Command {
+public class XboxTankDrive extends Command {
 
-    public SetDefaultCommand(Command cmd) {
+    public XboxTankDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.driveTrain);
-    	Robot.driveTrain.setNewDefaultCommand(cmd);
     }
 
     // Called just before this Command runs the first time
@@ -22,12 +21,15 @@ public class SetDefaultCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
+    	double leftSpeed = Robot.oi.driveController.getLeftJoystick_Y();
+    	double rightSpeed = Robot.oi.driveController.getRightJoystick_Y();
+
+    	Robot.driveTrain.tankDrive(leftSpeed, rightSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

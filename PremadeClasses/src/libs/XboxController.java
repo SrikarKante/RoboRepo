@@ -32,7 +32,8 @@ public class XboxController extends Joystick {
 	 */
 	public double getLeftJoystick_X() {
 		if (Math.abs(getX()) > 0.2) {
-			return getX();
+			//Correct inversion -- stick left returns 1.0
+			return -getX();
 		} else {
 			return 0;
 		}
@@ -55,7 +56,8 @@ public class XboxController extends Joystick {
 	 */
 	public double getRightJoystick_X() {
 		if (Math.abs(getRawAxis(4)) > 0.2) {
-			return getRawAxis(4);
+			//Correct inversion -- stick left returns 1.0
+			return -getRawAxis(4);
 		} else {
 			return 0;
 		}

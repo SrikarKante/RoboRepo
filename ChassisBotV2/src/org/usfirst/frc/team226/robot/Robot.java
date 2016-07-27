@@ -1,11 +1,9 @@
+
 package org.usfirst.frc.team226.robot;
 
-import org.usfirst.frc.team226.robot.commands.AlternateAuton;
-import org.usfirst.frc.team226.robot.commands.Auton;
 import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -21,7 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static DriveTrain driveTrain;
+	public static final DriveTrain driveTrain = new DriveTrain();
 	public static OI oi;
 
     Command autonomousCommand;
@@ -33,18 +31,12 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
-		driveTrain = new DriveTrain();
-		
         chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", new Auton());
-        chooser.addObject("Alt Auton", new AlternateAuton());
+//       chooser.addDefault("Default Auto", new ExampleCommand());
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
         
-        LiveWindow.addActuator("DriveTrain","frontLeft",(Jaguar)Robot.driveTrain.frontLeft);
-    	LiveWindow.addActuator("DriveTrain","rearLeft",(Jaguar)Robot.driveTrain.rearLeft);
-    	LiveWindow.addActuator("DriveTrain","frontRight",(Jaguar)Robot.driveTrain.frontRight);
-    	LiveWindow.addActuator("DriveTrain","rearRight",(Jaguar)Robot.driveTrain.rearRight);
+        driveTrain.setMotorsInverted();
     }
 	
 	/**

@@ -7,12 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class XboxTankDrive extends Command {
-	
-	double leftValue;
-	double rightValue;
+public class XboxArcadeDrive extends Command {
 
-    public XboxTankDrive() {
+    public XboxArcadeDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.driveTrain);
@@ -24,10 +21,10 @@ public class XboxTankDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	leftValue = Robot.oi.driveController.getLeftJoystick_Y();
-    	rightValue = Robot.oi.driveController.getRightJoystick_Y();
+    	double throttle = Robot.oi.driveController.getLeftJoystick_Y();
+    	double turn = Robot.oi.driveController.getRightJoystick_X();
     	
-    	Robot.driveTrain.tankDrive(leftValue, rightValue);
+    	Robot.driveTrain.arcadeDrive(throttle, turn, true);
     }
 
     // Make this return true when this Command no longer needs to run execute()
