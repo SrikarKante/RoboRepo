@@ -31,28 +31,46 @@ public class XboxController extends Joystick {
 	 * @return X-value of the left joystick
 	 */
 	public double getLeftJoystick_X() {
-		return getRawAxis(1);
+		if (Math.abs(getX()) > 0.2) {
+			return getX();
+		} else {
+			return 0;
+		}
 	}
 
 	/**
 	 * @return Y-value of the left joystick
 	 */
 	public double getLeftJoystick_Y() {
-		return getRawAxis(2);
+		if (Math.abs(getY()) > 0.2) {
+			// Correctly inverted -- stick up returns 1.0
+			return -getY();
+		} else {
+			return 0;
+		}
 	}
 
 	/**
 	 * @return X-value of the right joystick
 	 */
 	public double getRightJoystick_X() {
-		return getRawAxis(4);
+		if (Math.abs(getRawAxis(4)) > 0.2) {
+			return getRawAxis(4);
+		} else {
+			return 0;
+		}
 	}
 
 	/**
 	 * @return Y-value of the right joystick
 	 */
 	public double getRightJoystick_Y() {
-		return getRawAxis(5);
+		if (Math.abs(getRawAxis(5)) > 0.2) {
+			// Correctly inverted -- stick up returns 1.0
+			return -getRawAxis(5);
+		} else {
+			return 0;
+		}
 	}
 
 	// BUTTONS
