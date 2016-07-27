@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team226.robot;
 
 import org.usfirst.frc.team226.robot.commands.AlternateAuton;
@@ -108,6 +107,23 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        
+        SmartDashboard.putNumber("Left X", oi.driveController.getLeftJoystick_X());
+		SmartDashboard.putNumber("Left Y", oi.driveController.getLeftJoystick_Y());
+		SmartDashboard.putNumber("Right X", oi.driveController.getRightJoystick_X());
+		SmartDashboard.putNumber("Right Y", oi.driveController.getRightJoystick_Y());
+		SmartDashboard.putNumber("Triggers", oi.driveController.getTriggers());
+		SmartDashboard.putBoolean("A", oi.driveController.getAButtonPressed());
+		SmartDashboard.putBoolean("B", oi.driveController.getBButtonPressed());
+		SmartDashboard.putBoolean("X", oi.driveController.getXButtonPressed());
+		SmartDashboard.putBoolean("Y", oi.driveController.getYButtonPressed());
+		SmartDashboard.putBoolean("LB", oi.driveController.getLBButtonPressed());
+		SmartDashboard.putBoolean("RB", oi.driveController.getRBButtonPressed());
+		SmartDashboard.putBoolean("L3", oi.driveController.getL3ButtonPressed());
+		SmartDashboard.putBoolean("R3", oi.driveController.getR3ButtonPressed());
+		SmartDashboard.putBoolean("BACK", oi.driveController.getBACKButtonPressed());
+		SmartDashboard.putBoolean("START", oi.driveController.getSTARTButtonPressed());
+		SmartDashboard.putNumber("D-pad", oi.driveController.getDPad());
     }
     
     /**

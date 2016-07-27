@@ -16,9 +16,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrain extends Subsystem {
 
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
-
 	public SpeedController frontLeft = new Jaguar(RobotMap.FRONT_LEFT_MOTOR);
 	public SpeedController rearLeft = new Jaguar(RobotMap.REAR_LEFT_MOTOR);
 	public SpeedController frontRight = new Jaguar(RobotMap.FRONT_RIGHT_MOTOR);
