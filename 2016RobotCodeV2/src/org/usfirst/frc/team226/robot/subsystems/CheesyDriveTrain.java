@@ -38,11 +38,7 @@ public class CheesyDriveTrain extends Subsystem {
 
 		drive.tankDrive(t_left + skim(t_right), t_right + skim(t_left));
 	}
-
-	public void tankDrive(double left, double right) {
-		drive.tankDrive(left, right);
-	}
-
+	
 	double skim(double v) {
 		if (v > 1.0) {
 			return -((v - 1.0) * SKIM_GAIN);
@@ -51,6 +47,10 @@ public class CheesyDriveTrain extends Subsystem {
 		} else {
 			return 0;
 		}
+	}
+
+	public void tankDrive(double left, double right) {
+		drive.tankDrive(left, right);
 	}
 
 	boolean getTurnButton() {
