@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team226.robot;
 
+import org.usfirst.frc.team226.robot.commands.cmdgrpAutonOne;
+import org.usfirst.frc.team226.robot.commands.cmdgrpDefaultEmptyAuton;
 import org.usfirst.frc.team226.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -32,8 +34,8 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
         chooser = new SendableChooser();
-//       chooser.addDefault("Default Auto", new ExampleCommand());
-//        chooser.addObject("My Auto", new MyAutoCommand());
+       chooser.addDefault("Default Auto", new cmdgrpDefaultEmptyAuton());
+        chooser.addObject("Auto 1", new cmdgrpAutonOne());
         SmartDashboard.putData("Auto mode", chooser);
         
         driveTrain.setMotorsInverted();
