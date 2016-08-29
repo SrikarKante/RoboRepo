@@ -1,4 +1,3 @@
-package libs;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -184,15 +183,29 @@ public class XboxController extends Joystick {
 	}
 
 	/**
-	 * Both triggers use the same axis. The left is positive and right is
-	 * negative. This means that the two triggers' values add to give the
+	 * @return value of the left trigger
+	 */
+	public double getLeftTrigger() {
+		return getRawAxis(3);
+	}
+	
+	/**
+	 * @return value of the right trigger
+	 */
+	public double getRightTrigger() {
+		return getRawAxis(2);
+	}
+	
+	/**
+	 * The right trigger is positive and left trigger is negative
+	 * This means that the two triggers' values add to give the
 	 * result, so pressing both gives 0.
 	 * <p>
 	 * 
-	 * @return value of the axis of the triggers
+	 * @return value of the combined axis of the triggers
 	 */
 	public double getTriggers() {
-		return getRawAxis(3);
+		return getLeftTrigger() - getRightTrigger();
 	}
 
 	/**
