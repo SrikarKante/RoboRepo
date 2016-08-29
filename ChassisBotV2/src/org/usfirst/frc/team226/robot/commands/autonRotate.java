@@ -26,12 +26,7 @@ public class autonRotate extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (turnLeft) {
-    		Robot.driveTrain.tankDrive(-speed, speed);
-    	}
-    	else {
-    		Robot.driveTrain.tankDrive(speed, -speed);
-    	}
+    	Robot.driveTrain.autonRotate(speed, turnLeft);
     }
 
     // Make this return true when this Command no longer needs to run execute()
