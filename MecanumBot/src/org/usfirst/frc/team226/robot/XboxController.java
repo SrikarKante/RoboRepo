@@ -7,14 +7,22 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 /**
  * @author Alec Minchington
  * 
- * @version 1.1
+ * @version 1.2
  */
 
 public class XboxController extends Joystick {
 
 	public XboxController(int usbPort) {
 		super(usbPort);
+		this.deadband = 0.2;
 	}
+	
+	public XboxController(int usbPort, double deadband) {
+		super(usbPort);
+		this.deadband = deadband;
+	}
+	
+	private double deadband;
 
 	Button A = new JoystickButton(this, 1);
 	Button B = new JoystickButton(this, 2);
@@ -33,7 +41,7 @@ public class XboxController extends Joystick {
 	 * @return X-value of the left joystick
 	 */
 	public double getLeftJoystick_X() {
-		if (Math.abs(getX()) > 0.2) {
+		if (Math.abs(getX()) > deadband) {
 			//Correct inversion -- stick left returns 1.0
 			return -getX();
 		} else {
@@ -45,7 +53,7 @@ public class XboxController extends Joystick {
 	 * @return Y-value of the left joystick
 	 */
 	public double getLeftJoystick_Y() {
-		if (Math.abs(getY()) > 0.2) {
+		if (Math.abs(getY()) > deadband) {
 			// Correctly inverted -- stick up returns 1.0
 			return -getY();
 		} else {
@@ -57,7 +65,7 @@ public class XboxController extends Joystick {
 	 * @return X-value of the right joystick
 	 */
 	public double getRightJoystick_X() {
-		if (Math.abs(getRawAxis(4)) > 0.2) {
+		if (Math.abs(getRawAxis(4)) > deadband) {
 			//Correct inversion -- stick left returns 1.0
 			return -getRawAxis(4);
 		} else {
@@ -69,7 +77,7 @@ public class XboxController extends Joystick {
 	 * @return Y-value of the right joystick
 	 */
 	public double getRightJoystick_Y() {
-		if (Math.abs(getRawAxis(5)) > 0.2) {
+		if (Math.abs(getRawAxis(5)) > deadband) {
 			// Correctly inverted -- stick up returns 1.0
 			return -getRawAxis(5);
 		} else {
@@ -219,5 +227,17 @@ public class XboxController extends Joystick {
 	 */
 	public int getDPad() {
 		return getPOV(0);
+	}
+	
+	//UTILS
+	
+	/**
+	 * Gets the joystick deadband threshold.
+	 * <p>
+	 * 
+	 * @return value of the joystick deadband threshold
+	 */
+	public double getDeadband() {
+		return deadband;
 	}
 }
