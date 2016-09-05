@@ -21,7 +21,7 @@ public class DemoDriveToggle extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	XboxArcadeDrive.demo = !XboxArcadeDrive.demo;
+    	Robot.driveTrain.demoDriveEnabled = !Robot.driveTrain.demoDriveEnabled;
     }
 
     // Make this return true when this Command no longer needs to run execute()

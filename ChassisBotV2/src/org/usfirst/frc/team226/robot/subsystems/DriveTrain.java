@@ -19,6 +19,7 @@ public class DriveTrain extends Subsystem {
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
+	public boolean demoDriveEnabled = false;
 
 	private SpeedController frontLeft = new Jaguar(RobotMap.FRONT_LEFT_MOTOR);
 	private SpeedController rearLeft = new Jaguar(RobotMap.REAR_LEFT_MOTOR);
