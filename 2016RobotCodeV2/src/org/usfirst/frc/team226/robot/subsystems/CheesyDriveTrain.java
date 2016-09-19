@@ -27,6 +27,14 @@ public class CheesyDriveTrain extends Subsystem {
 	public void initDefaultCommand() {
 		setDefaultCommand(new CheesyDrive());
 	}
+	
+	public void tankDrive(double left, double right) {
+		drive.tankDrive(left, right);
+	}
+	
+	public void cheesyArcadeDrive(double throttle, double turn, boolean squaredInputs) {
+		drive.arcadeDrive(throttle, turn, squaredInputs);
+	}
 
 	public void cheesyDrive(double throttle, double turn) {
 		if (!getTurnButton()) {
@@ -49,9 +57,6 @@ public class CheesyDriveTrain extends Subsystem {
 		}
 	}
 
-	public void tankDrive(double left, double right) {
-		drive.tankDrive(left, right);
-	}
 
 	boolean getTurnButton() {
 		return CheesyDrive.turnButton;

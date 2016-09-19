@@ -1,11 +1,9 @@
 package org.usfirst.frc.team226.robot.subsystems;
 
 import org.usfirst.frc.team226.robot.RobotMap;
-import org.usfirst.frc.team226.robot.commands.DriveWithJoysticks;
+import org.usfirst.frc.team226.robot.commands.CheesyDrive;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -13,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class DriveTrain extends Subsystem {
+public class RampAlgDriveTrain extends Subsystem {
 
 	public SpeedController rearRightMotor = new CANTalon(RobotMap.REAR_RIGHT_DRIVE);
 	public SpeedController frontRightMotor = new CANTalon(RobotMap.FRONT_RIGHT_DRIVE);
@@ -45,7 +43,7 @@ public class DriveTrain extends Subsystem {
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
-		setDefaultCommand(new DriveWithJoysticks());
+		setDefaultCommand(new CheesyDrive());
 	}
 
 	public void tankDrive(double leftJoystick, double rightJoystick) {
