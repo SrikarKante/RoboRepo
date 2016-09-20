@@ -1,3 +1,3 @@
-# thisrepo
+# RoboRepo
 This is a repository.
-Some say it holds code for FRC robots.
+Some say it holds Java code for FRC robots.
