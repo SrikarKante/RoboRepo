@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 /**
  * @author Alec Minchington
  * 
- * @version 1.2
+ * @version 1.25
  */
 
 public class XboxController extends Joystick {
@@ -42,7 +42,7 @@ public class XboxController extends Joystick {
 	 */
 	public double getLeftJoystick_X() {
 		if (Math.abs(getX()) > deadband) {
-			//Correct inversion -- stick left returns 1.0
+			//Correctly inverted -- stick left returns 1.0
 			return -getX();
 		} else {
 			return 0;
@@ -66,7 +66,7 @@ public class XboxController extends Joystick {
 	 */
 	public double getRightJoystick_X() {
 		if (Math.abs(getRawAxis(4)) > deadband) {
-			//Correct inversion -- stick left returns 1.0
+			//Correctly inverted -- stick left returns 1.0
 			return -getRawAxis(4);
 		} else {
 			return 0;
