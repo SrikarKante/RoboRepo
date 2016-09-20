@@ -1,3 +1,6 @@
+package libs;
+
+
 
 /**
  * A Java implementation of Team 33's Culver Drive.
@@ -37,7 +40,10 @@ public class CulverDrive {
 			-Math.sqrt(2) / 2, -Math.sqrt(3) / 2, -1, -Math.sqrt(3) / 2, -Math.sqrt(2) / 2, -0.5, 0 };
 
 	int[] angles = { 0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330, 360 };
-
+	
+	/**
+	 * @version 1.0
+	 */
 	// CULVER DRIVE CONSTANTS
 
 	private static final double CULVER_DRIVE_RADIUS_GAIN = 1.0; // Tune this
