@@ -5,9 +5,11 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
+ * A robot Java wrapper class for the Xbox 360 controller.
+ * <p>
  * @author Alec Minchington
  * 
- * @version 1.25
+ * @version 1.26
  */
 
 public class XboxController extends Joystick {
