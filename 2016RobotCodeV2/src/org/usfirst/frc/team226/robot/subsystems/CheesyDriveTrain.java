@@ -21,7 +21,7 @@ public class CheesyDriveTrain extends Subsystem {
 	RobotDrive drive = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 
 	// TUNE THESE
-	private static final double SKIM_GAIN = 1.0;
+	private static final double SKIM_GAIN = 0.5;
 	private static final double TURN_GAIN = 1.0;
 
 	public void initDefaultCommand() {
@@ -36,15 +36,19 @@ public class CheesyDriveTrain extends Subsystem {
 		drive.arcadeDrive(throttle, turn, squaredInputs);
 	}
 
-	public void cheesyDrive(double throttle, double turn) {
-		if (!getTurnButton()) {
+	public void cheesyDrive(double throttle, double turn, boolean quickTurn) {
+		boolean isQuickTurn = quickTurn;
+		if (!quickTurn) {
 			turn = turn * (TURN_GAIN * Math.abs(throttle));
 		}
 
 		double t_left = throttle - turn;
 		double t_right = throttle + turn;
+		
+		double left = t_left + skim(t_right);
+		double right = t_right + skim(t_left);
 
-		drive.tankDrive(t_left + skim(t_right), t_right + skim(t_left));
+		drive.tankDrive(left, right);
 	}
 	
 	double skim(double v) {
