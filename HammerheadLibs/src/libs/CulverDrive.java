@@ -1,6 +1,6 @@
 package libs;
 
-
+import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
  * A Java implementation of Team 33's Culver Drive.
@@ -8,47 +8,35 @@ package libs;
  * Credit goes to Team 33's Bryan Culver for original idea and math.
  * 
  * @author Alec Minchington
- * @version 1.0
+ * @version 1.5
  */
 
-public class CulverDrive {
+public final class CulverDrive {
 
-	public static void main(String[] args) {
-		// Use for testing cd methods
-		CulverDrive cd = new CulverDrive();
+	// TODO tune gains
 
-		// for (int i = 0; i < cd.x.length; i++) {
-		// System.out.println("Angle: " + cd.angles[i] + " -> ");
-		// culverDrive(0.5, cd.x[i], cd.y[i], true);
-		// }
+	private CulverDrive() {
+	};
 
-		// for (int i = 0; i<cd.x.length;i++) {
-		// System.out.println("Angle: " + cd.angles[i] + " -> " +
-		// culverDriveCalculateRadius(1, cd.x[i], cd.y[i]));
-		// }
-	}
-
-	public CulverDrive() {
-
-	}
 	// UNIT CIRCLE X/Y COORDS - for testing functions
-
-	double[] x = { 1, Math.sqrt(3) / 2, Math.sqrt(2) / 2, 0.5, 0, -0.5, -Math.sqrt(2) / 2, -Math.sqrt(3) / 2, -1,
-			-Math.sqrt(3) / 2, -Math.sqrt(2) / 2, -0.5, 0, 0.5, Math.sqrt(2) / 2, Math.sqrt(3) / 2, 1 };
-
-	double[] y = { 0, 0.5, Math.sqrt(2) / 2, Math.sqrt(3) / 2, 1, Math.sqrt(3) / 2, Math.sqrt(2) / 2, 0.5, 0, -0.5,
-			-Math.sqrt(2) / 2, -Math.sqrt(3) / 2, -1, -Math.sqrt(3) / 2, -Math.sqrt(2) / 2, -0.5, 0 };
-
-	int[] angles = { 0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330, 360 };
-	
-	/**
-	 * @version 1.0
+	/*
+	 * double[] x = { 1, Math.sqrt(3) / 2, Math.sqrt(2) / 2, 0.5, 0, -0.5,
+	 * -Math.sqrt(2) / 2, -Math.sqrt(3) / 2, -1, -Math.sqrt(3) / 2,
+	 * -Math.sqrt(2) / 2, -0.5, 0, 0.5, Math.sqrt(2) / 2, Math.sqrt(3) / 2, 1 };
+	 * 
+	 * double[] y = { 0, 0.5, Math.sqrt(2) / 2, Math.sqrt(3) / 2, 1,
+	 * Math.sqrt(3) / 2, Math.sqrt(2) / 2, 0.5, 0, -0.5, -Math.sqrt(2) / 2,
+	 * -Math.sqrt(3) / 2, -1, -Math.sqrt(3) / 2, -Math.sqrt(2) / 2, -0.5, 0 };
+	 * 
+	 * int[] angles = { 0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240,
+	 * 270, 300, 315, 330, 360 };
 	 */
+
 	// CULVER DRIVE CONSTANTS
 
-	private static final double CULVER_DRIVE_RADIUS_GAIN = 1.0; // Tune this
-	private static final double CULVER_DRIVE_RAW_GAIN = 1.0; // and this
-	private static final double CULVER_DRIVE_ALT_RAW_GAIN = 1.0; // and this
+	private static final double CULVER_DRIVE_RADIUS_GAIN = 1; // Tune this
+	private static final double CULVER_DRIVE_RAW_GAIN = 1; // and this
+	private static final double CULVER_DRIVE_ALT_RAW_GAIN = 1; // and this
 
 	private static final double ONE_NINTIETH = 0.011111;
 	private static final double ONE_TWENTIETH = 0.05;
@@ -72,7 +60,7 @@ public class CulverDrive {
 	 *            {@code true} to enable turning while throttle is 0,
 	 *            {@code false} to disable
 	 */
-	public static void culverDrive(double throttle, double x, double y, boolean quickTurn) {
+	public static void culverDrive(RobotDrive rd, double throttle, double x, double y, boolean quickTurn) {
 		double radius = culverDriveCalculateRadius(throttle, x, y);
 		double raw = culverDriveCalculateRaw(x, y);
 
@@ -90,8 +78,7 @@ public class CulverDrive {
 		// System.out.println("left: " + limitMotorOutput(left));
 		// System.out.println("right: " + limitMotorOutput(right));
 
-		// Uncomment this for actual implementation in a robot Java project
-		// drive.tankDrive(limitMotorOutput(left), limitMotorOutput(right));
+		rd.tankDrive(limit(left), limit(right));
 	}
 
 	/**
@@ -106,7 +93,7 @@ public class CulverDrive {
 	 * @param y
 	 *            y coordinate of the steering stick
 	 */
-	public static void culverDriveAlt(double throttle, double x, double y) {
+	public static void culverDriveAlt(RobotDrive rd, double throttle, double x, double y) {
 		double radius = culverDriveCalculateRadius(throttle, x, y);
 		double raw = culverDriveCalculateAltRaw(x, y);
 
@@ -119,8 +106,7 @@ public class CulverDrive {
 		// System.out.println("left: " + limitMotorOutput(left));
 		// System.out.println("right: " + limitMotorOutput(right));
 
-		// Uncomment this for actual implementation in a robot Java project
-		// drive.tankDrive(limitMotorOutput(left), limitMotorOutput(right));
+		rd.tankDrive(limit(left), limit(right));
 	}
 
 	// CULVER DRIVE CALCULATION METHODS
@@ -135,7 +121,7 @@ public class CulverDrive {
 	 *            x coordinate of the steering stick
 	 * @param y
 	 *            y coordinate of the steering stick
-	 * @return {@code 0} to {@code 1} based on the magnitude of the stick, the
+	 * @return {@code -1} to {@code 1} based on the magnitude of the stick, the
 	 *         angle theta from vertical, an enablement curve, and a calibrated
 	 *         gain.
 	 */
@@ -155,7 +141,7 @@ public class CulverDrive {
 	 *            x coordinate of the steering stick
 	 * @param y
 	 *            y coordinate of the steering stick
-	 * @return {@code 0} to {@code 1} based on the magnitude of the stick, the
+	 * @return {@code -1} to {@code 1} based on the magnitude of the stick, the
 	 *         angle theta from vertical, an enablement curve, and a calibrated
 	 *         gain.
 	 */
@@ -175,7 +161,7 @@ public class CulverDrive {
 	 *            x coordinate of the steering stick
 	 * @param y
 	 *            y coordinate of the steering stick
-	 * @return {@code 0} to {@code 1} based on the magnitude of the stick, the
+	 * @return {@code -1} to {@code 1} based on the magnitude of the stick, the
 	 *         angle theta form vertical, an alternate enablement curve, and a
 	 *         calibrated gain.
 	 */
@@ -198,7 +184,7 @@ public class CulverDrive {
 	 *            y coordinate of the steering stick
 	 * @return the angle theta from stick vertical.
 	 */
-	static double getThetaFromVertical(double x, double y) {
+	private static double getThetaFromVertical(double x, double y) {
 		/*
 		 * Old code -> double theta = Math.toDegrees(Math.atan2(y, x)) - 90; if
 		 * (theta <= -180) { theta += 360; } return theta;
@@ -208,7 +194,7 @@ public class CulverDrive {
 	}
 
 	/**
-	 * Gets the sign of the angle theta. (Techincally works for any number
+	 * Gets the sign of the angle theta. (Technically works for any number
 	 * including non-angles)
 	 * <p>
 	 * 
@@ -250,8 +236,8 @@ public class CulverDrive {
 	 * 
 	 * @param absTheta
 	 *            absolute value of an angle theta in degrees
-	 * @return {@code 1} if <b>absTheta</b> {@code < 95}, {@code 1} at 95 fading
-	 *         to {@code 0} at 115.
+	 * @return {@code 1} if <b>absTheta</b> {@code <= 95}, fading to {@code 0}
+	 *         at 115.
 	 */
 	private static double enablementCurveRadius(double absTheta) {
 		if (absTheta < 95) {
@@ -274,8 +260,8 @@ public class CulverDrive {
 	 * 
 	 * @param absTheta
 	 *            absolute value of an angle theta in degrees
-	 * @return {@code 1} if <b>absTheta</b> {@code < 95}, {@code 1} at 95 fading
-	 *         to {@code 0} at 115.
+	 * @return {@code 1} if <b>absTheta</b> {@code < 95}, fading to {@code 0} at
+	 *         115.
 	 */
 	private static double enablementCurveAltRaw(double absTheta) {
 		if (absTheta <= 90) {
