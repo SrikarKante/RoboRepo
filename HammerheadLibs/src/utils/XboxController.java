@@ -6,10 +6,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * A robot Java wrapper class for the Xbox 360 controller.
+ * Includes built-in variable joystick deadband.
  * <p>
+ * 
  * @author Alec Minchington
  * 
- * @version 1.26
+ * @version 1.3
  */
 
 public class XboxController extends Joystick {
@@ -18,24 +20,66 @@ public class XboxController extends Joystick {
 		super(usbPort);
 		this.deadband = 0.2;
 	}
-	
+
 	public XboxController(int usbPort, double deadband) {
 		super(usbPort);
 		this.deadband = deadband;
 	}
-	
+
 	private double deadband;
 
-	Button A = new JoystickButton(this, 1);
-	Button B = new JoystickButton(this, 2);
-	Button X = new JoystickButton(this, 3);
-	Button Y = new JoystickButton(this, 4);
-	Button LB = new JoystickButton(this, 5);
-	Button RB = new JoystickButton(this, 6);
-	Button BACK = new JoystickButton(this, 7);
-	Button START = new JoystickButton(this, 8);
-	Button LS = new JoystickButton(this, 9);
-	Button RS = new JoystickButton(this, 10);
+	private Button A = new JoystickButton(this, 1);
+	private Button B = new JoystickButton(this, 2);
+	private Button X = new JoystickButton(this, 3);
+	private Button Y = new JoystickButton(this, 4);
+	private Button LB = new JoystickButton(this, 5);
+	private Button RB = new JoystickButton(this, 6);
+	private Button BACK = new JoystickButton(this, 7);
+	private Button START = new JoystickButton(this, 8);
+	private Button LS = new JoystickButton(this, 9);
+	private Button RS = new JoystickButton(this, 10);
+
+	// JOYSTICKBUTTONS
+
+	public Button getAButton() {
+		return A;
+	}
+
+	public Button getBButton() {
+		return B;
+	}
+
+	public Button getXButton() {
+		return X;
+	}
+
+	public Button getYButton() {
+		return Y;
+	}
+
+	public Button getLBButton() {
+		return LB;
+	}
+	
+	public Button getRBButton() {
+		return RB;
+	}
+	
+	public Button getBACKButton() {
+		return BACK;
+	}
+	
+	public Button getSTARTButton() {
+		return START;
+	}
+	
+	public Button getLSButton() {
+		return LS;
+	}
+	
+	public Button getRSButton() {
+		return RS;
+	}
 
 	// STICKS
 
@@ -44,7 +88,7 @@ public class XboxController extends Joystick {
 	 */
 	public double getLeftJoystick_X() {
 		if (Math.abs(getX()) > deadband) {
-			//Correctly inverted -- stick left returns 1.0
+			// Correctly inverted -- stick left returns 1.0
 			return -getX();
 		} else {
 			return 0;
@@ -68,7 +112,7 @@ public class XboxController extends Joystick {
 	 */
 	public double getRightJoystick_X() {
 		if (Math.abs(getRawAxis(4)) > deadband) {
-			//Correctly inverted -- stick left returns 1.0
+			// Correctly inverted -- stick left returns 1.0
 			return -getRawAxis(4);
 		} else {
 			return 0;
@@ -180,7 +224,7 @@ public class XboxController extends Joystick {
 	 * @return {@code true} if the left stick is clicked in, {@code false}
 	 *         otherwise
 	 */
-	public boolean getL3ButtonPressed() {
+	public boolean getLSButtonPressed() {
 		return getRawButton(9);
 	}
 
@@ -191,7 +235,7 @@ public class XboxController extends Joystick {
 	 * @return {@code true} if the right stick is clicked in, {@code false}
 	 *         otherwise
 	 */
-	public boolean getR3ButtonPressed() {
+	public boolean getRSButtonPressed() {
 		return getRawButton(10);
 	}
 
@@ -201,18 +245,18 @@ public class XboxController extends Joystick {
 	public double getLeftTrigger() {
 		return getRawAxis(3);
 	}
-	
+
 	/**
 	 * @return value of the right trigger
 	 */
 	public double getRightTrigger() {
 		return getRawAxis(2);
 	}
-	
+
 	/**
-	 * The right trigger is positive and left trigger is negative
-	 * This means that the two triggers' values add to give the
-	 * result, so pressing both gives 0.
+	 * The right trigger is positive and left trigger is negative This means
+	 * that the two triggers' values add to give the result, so pressing both
+	 * gives 0.
 	 * <p>
 	 * 
 	 * @return value of the combined axis of the triggers
@@ -230,9 +274,9 @@ public class XboxController extends Joystick {
 	public int getDPad() {
 		return getPOV(0);
 	}
-	
-	//UTILS
-	
+
+	// UTILS
+
 	/**
 	 * Gets the joystick deadband threshold.
 	 * <p>
