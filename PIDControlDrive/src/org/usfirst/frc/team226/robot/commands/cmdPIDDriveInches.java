@@ -16,10 +16,8 @@ public class cmdPIDDriveInches extends Command {
 		// drivesetpoint is in a TBD unit (probably inches)
 		requires(Robot.driveTrain);
 		// Convert inches to encoder ticks (pulses?)
-		double conversionFactor = 4096.0 / (Math.PI * 8); // 4096 ppr (1024 at
-															// 4x) per 8pi
-															// inches (wheel
-															// diameter)
+		double conversionFactor = 4096.0 / (Math.PI * 8); 
+		// 4096 ppr (1024 at 4x) per 8pi inches (wheel diameter)
 		this.driveSetpoint = driveSetpoint * conversionFactor;
 	}
 
@@ -47,8 +45,8 @@ public class cmdPIDDriveInches extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-//		Robot.driveTrain.dirController.disable();
-//		Robot.driveTrain.distController.disable();
+		// Robot.driveTrain.dirController.disable();
+		// Robot.driveTrain.distController.disable();
 		Robot.driveTrain.resetAllSensors();
 	}
 
