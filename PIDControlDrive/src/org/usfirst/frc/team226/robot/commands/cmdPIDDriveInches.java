@@ -10,15 +10,19 @@ import edu.wpi.first.wpilibj.command.Command;
 public class cmdPIDDriveInches extends Command {
 
 	private double driveSetpoint;
-
-	public cmdPIDDriveInches(double driveSetpoint) {
-		// turnSetpoint is in degrees
-		// drivesetpoint is in a TBD unit (probably inches)
+	
+	private boolean wasOnTarget = false;
+	private long startTime;
+	private int onTargetDuration;
+	
+	public cmdPIDDriveInches(double driveSetpoint, int secondsOnTarget) {
+		// driveSetpoint is in inches
 		requires(Robot.driveTrain);
 		// Convert inches to encoder ticks (pulses?)
 		double conversionFactor = 4096.0 / (Math.PI * 8); 
-		// 4096 ppr (1024 at 4x) per 8pi inches (wheel diameter)
+		// 4096 ppr (1024 at 4x) per 8pi inches (wheel circumference)
 		this.driveSetpoint = driveSetpoint * conversionFactor;
+		this.onTargetDuration = secondsOnTarget * 1000;
 	}
 
 	// Called just before this Command runs the first time
@@ -39,8 +43,21 @@ public class cmdPIDDriveInches extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Robot.oi.driver.getBACKButtonPressed();
+//		return Robot.oi.driver.getBACKButtonPressed();
 		// && Math.abs(Robot.driveTrain.distController.getError()) < 10;
+		if (Math.abs(Robot.driveTrain.dirController.getError()) < 0.1 && Math.abs(Robot.driveTrain.distController.getError()) < 0.1) {
+			if (!wasOnTarget) {
+				startTime = System.currentTimeMillis();
+				wasOnTarget = true;
+			}
+			long timeOnTarget = System.currentTimeMillis() - startTime;
+			if (timeOnTarget >= onTargetDuration) {
+				wasOnTarget = false;
+				return true;
+			}
+		}
+		wasOnTarget = false;
+		return false;
 	}
 
 	// Called once after isFinished returns true

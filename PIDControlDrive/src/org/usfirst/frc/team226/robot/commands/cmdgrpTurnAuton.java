@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class cmdgrpTurnAuton extends CommandGroup {
     
     public  cmdgrpTurnAuton() {
-    	addSequential(new cmdPIDTurnToAngle(90));
-    	addSequential(new cmdPIDTurnToAngle(-45));
-    	addSequential(new cmdPIDTurnToAngle(5));
+    	addSequential(new cmdPIDTurnToAngle(90, 2));
+    	addSequential(new cmdPIDTurnToAngle(-45, 2));
+    	addSequential(new cmdPIDTurnToAngle(5, 2));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
